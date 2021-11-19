@@ -32,8 +32,6 @@ class ViewController: UIViewController {
                            forCellReuseIdentifier: CustomTVCell.identifier)
         tablrView.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         tablrView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
-        tablrView.estimatedRowHeight = 320
-        tablrView.rowHeight = UITableView.automaticDimension
         tablrView.delegate = self
         tablrView.dataSource = self
     }
@@ -42,14 +40,13 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return models.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTVCell.identifier,
                                                  for: indexPath) as? CustomTVCell
         cell?.configureCell(with: models)
-        cell?.layoutIfNeeded()
         return cell ?? UITableViewCell()
     }
 }

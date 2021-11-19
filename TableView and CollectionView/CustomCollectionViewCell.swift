@@ -40,7 +40,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(name: String) {
-        print(name)
         image.image = UIImage(named: "\(name)")
     }
 }
