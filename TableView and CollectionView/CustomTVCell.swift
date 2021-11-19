@@ -14,8 +14,7 @@ class CustomTVCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-//        contentView.backgroundColor = .white
+
         setupCollectionView()
     }
     
@@ -30,19 +29,26 @@ class CustomTVCell: UITableViewCell {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        layout.itemSize = CGSize(width: contentView.frame.width,
-                                 height: 300)
+        layout.itemSize = CGSize(width: contentView.frame.width - 10,
+                                 height: (contentView.frame.width / 3 * 2) - 10)
         layout.scrollDirection = .horizontal
-        collectionView = UICollectionView(frame: .zero,
+        collectionView = UICollectionView(frame: self.contentView.bounds,
                                           collectionViewLayout: layout)
         guard let collectionView = collectionView else { return }
         contentView.addSubview(collectionView)
         collectionView.register(CustomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
-        collectionView.frame = contentView.frame
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
     }
 }
 
@@ -50,17 +56,11 @@ extension CustomTVCell: UICollectionViewDelegate,
                         UICollectionViewDataSource,
                         UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell
-        cell?.backgroundColor = .gray
         return cell ?? UICollectionViewCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: contentView.frame.width,
-                      height: contentView.frame.height)
     }
 }
