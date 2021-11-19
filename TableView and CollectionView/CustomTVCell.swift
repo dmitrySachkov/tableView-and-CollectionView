@@ -12,10 +12,10 @@ class CustomTVCell: UITableViewCell {
     
     private var collectionView: UICollectionView?
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+//        contentView.backgroundColor = .white
         setupCollectionView()
     }
     
@@ -29,30 +29,38 @@ class CustomTVCell: UITableViewCell {
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        layout.itemSize = CGSize(width: contentView.frame.width - 20,
-                                 height: contentView.frame.height)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        layout.itemSize = CGSize(width: contentView.frame.width,
+                                 height: 300)
         layout.scrollDirection = .horizontal
-        collectionView = UICollectionView(frame: contentView.frame,
+        collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: layout)
         guard let collectionView = collectionView else { return }
         contentView.addSubview(collectionView)
         collectionView.register(CustomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        collectionView.frame = contentView.frame
         collectionView.delegate = self
         collectionView.dataSource = self
         
     }
 }
 
-extension CustomTVCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CustomTVCell: UICollectionViewDelegate,
+                        UICollectionViewDataSource,
+                        UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell
-        cell?.backgroundColor = .white
+        cell?.backgroundColor = .gray
         return cell ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: contentView.frame.width,
+                      height: contentView.frame.height)
     }
 }
