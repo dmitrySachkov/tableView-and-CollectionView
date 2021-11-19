@@ -32,10 +32,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func getImage() {
         NSLayoutConstraint.activate([
-            image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            image.widthAnchor.constraint(equalToConstant: 250),
-            image.heightAnchor.constraint(equalToConstant: 250)
+            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            image.topAnchor.constraint(equalTo: contentView.topAnchor),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     

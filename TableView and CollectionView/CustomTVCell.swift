@@ -33,7 +33,7 @@ class CustomTVCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         layout.itemSize = CGSize(width: contentView.frame.width - 10,
-                                 height: (contentView.frame.width / 3 * 2) - 10)
+                                 height: (contentView.frame.width / 3 * 2) - 20)
         layout.scrollDirection = .horizontal
         collectionView = UICollectionView(frame: self.contentView.bounds,
                                           collectionViewLayout: layout)
@@ -42,16 +42,15 @@ class CustomTVCell: UITableViewCell {
         collectionView.register(CustomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         
-        
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            collectionView.heightAnchor.constraint(equalToConstant: contentView.frame.width / 3 * 2)
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
