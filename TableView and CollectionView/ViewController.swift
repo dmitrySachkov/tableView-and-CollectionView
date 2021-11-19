@@ -10,10 +10,13 @@ import UIKit
 class ViewController: UIViewController {
     
     private var tablrView: UITableView?
+   
+    let models = ["One", "Two", "Three"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        tablrView?.reloadData()
     }
 
     private func setupTableView() {
@@ -24,9 +27,13 @@ class ViewController: UIViewController {
         tablrView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         tablrView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         tablrView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        tablrView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        tablrView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         tablrView.register(CustomTVCell.self,
                            forCellReuseIdentifier: CustomTVCell.identifier)
+        tablrView.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        tablrView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+        tablrView.estimatedRowHeight = 320
+        tablrView.rowHeight = UITableView.automaticDimension
         tablrView.delegate = self
         tablrView.dataSource = self
     }
@@ -35,12 +42,14 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTVCell.identifier,
-                                                 for: indexPath)
-        return cell
+                                                 for: indexPath) as? CustomTVCell
+        cell?.configureCell(with: models)
+        cell?.layoutIfNeeded()
+        return cell ?? UITableViewCell()
     }
 }

@@ -12,6 +12,8 @@ class CustomTVCell: UITableViewCell {
     
     private var collectionView: UICollectionView?
     
+    private var model = [String]()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -22,8 +24,9 @@ class CustomTVCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with: [String]) {
-        
+    func configureCell(with model: [String]) {
+        self.model = model
+        collectionView?.reloadData()
     }
     
     private func setupCollectionView() {
@@ -39,6 +42,9 @@ class CustomTVCell: UITableViewCell {
         collectionView.register(CustomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -56,11 +62,13 @@ extension CustomTVCell: UICollectionViewDelegate,
                         UICollectionViewDataSource,
                         UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell
+        let name = model[indexPath.row]
+        cell?.configure(name: name)
         return cell ?? UICollectionViewCell()
     }
 }
