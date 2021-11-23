@@ -16,6 +16,7 @@
 		120FDE0F2747B3F100734CC2 /* CustomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FDE0E2747B3F100734CC2 /* CustomTVCell.swift */; };
 		120FDE112747B62400734CC2 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FDE102747B62400734CC2 /* CustomCollectionViewCell.swift */; };
 		120FDE1327481EC500734CC2 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FDE1227481EC500734CC2 /* MyTableViewCell.swift */; };
+		12CD6E1E274BD7CA0024BC05 /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CD6E1D274BD7CA0024BC05 /* RoundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		120FDE0E2747B3F100734CC2 /* CustomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTVCell.swift; sourceTree = "<group>"; };
 		120FDE102747B62400734CC2 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		120FDE1227481EC500734CC2 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		12CD6E1D274BD7CA0024BC05 /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				120FDDFC2747ABC900734CC2 /* SceneDelegate.swift */,
 				120FDDFE2747ABC900734CC2 /* ViewController.swift */,
 				120FDE1227481EC500734CC2 /* MyTableViewCell.swift */,
+				12CD6E1D274BD7CA0024BC05 /* RoundView.swift */,
 				120FDE0E2747B3F100734CC2 /* CustomTVCell.swift */,
 				120FDE102747B62400734CC2 /* CustomCollectionViewCell.swift */,
 				120FDE002747ABC900734CC2 /* Main.storyboard */,
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				120FDDFF2747ABC900734CC2 /* ViewController.swift in Sources */,
+				12CD6E1E274BD7CA0024BC05 /* RoundView.swift in Sources */,
 				120FDE112747B62400734CC2 /* CustomCollectionViewCell.swift in Sources */,
 				120FDDFB2747ABC800734CC2 /* AppDelegate.swift in Sources */,
 				120FDE0F2747B3F100734CC2 /* CustomTVCell.swift in Sources */,

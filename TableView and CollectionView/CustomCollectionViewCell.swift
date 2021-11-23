@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class CustomCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CustomCollectionViewCell"
+    
+    var urlString = ""
+    
+    var player: AVPlayer?
     
     private var image: UIImageView = {
        let image = UIImageView()
@@ -19,10 +25,16 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
+    private var videoView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .gray
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .gray
-        contentView.addSubview(image)
+        contentView.addSubview(videoView)
         getImage()
     }
     
@@ -32,14 +44,29 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func getImage() {
         NSLayoutConstraint.activate([
-            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            image.topAnchor.constraint(equalTo: contentView.topAnchor),
-            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            videoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            videoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            videoView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            videoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
-    func configure(name: String) {
-        image.image = UIImage(named: "\(name)")
+    func configure(urlString: String) {
+        self.urlString = urlString
+    }
+    
+    func presentVideo() {
+        guard let url = URL(string: urlString) else { return }
+        DispatchQueue.main.async {
+            self.player = AVPlayer(url: url)
+            let playerLayer = AVPlayerLayer(player: self.player)
+            self.videoView.layer.addSublayer(playerLayer)
+            playerLayer.frame = self.frame
+            self.player?.play()
+        }
+    }
+    
+    func stopPlay() {
+        player?.pause()
     }
 }

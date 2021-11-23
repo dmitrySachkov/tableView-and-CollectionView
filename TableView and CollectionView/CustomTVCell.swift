@@ -60,7 +60,7 @@ class CustomTVCell: UITableViewCell {
 
 extension CustomTVCell: UICollectionViewDelegate,
                         UICollectionViewDataSource,
-                        UICollectionViewDelegateFlowLayout {
+                        UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.count
     }
@@ -68,7 +68,21 @@ extension CustomTVCell: UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell
         let name = model[indexPath.row]
-        cell?.configure(name: name)
+        cell?.configure(urlString: name)
         return cell ?? UICollectionViewCell()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        collectionView?.visibleCells.forEach({ cell in
+            guard let videoCell = cell as? CustomCollectionViewCell else { return }
+            videoCell.stopPlay()
+        })
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        collectionView?.visibleCells.forEach({ cell in
+            guard let videoCell = cell as? CustomCollectionViewCell else { return }
+            videoCell.presentVideo()
+        })
     }
 }

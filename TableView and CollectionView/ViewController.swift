@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     
     private var tablrView: UITableView?
    
-    let models = ["One", "Two", "Three"]
+    let models = ["https://www.youtube.com/watch?v=_gQ5lZJtggY", "https://www.youtube.com/watch?v=dzaLuNriPzk", "https://www.youtube.com/watch?v=SBadAYwuunE", "https://www.youtube.com/watch?v=tHK3lQoKoYY"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
