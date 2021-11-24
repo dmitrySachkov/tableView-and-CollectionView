@@ -62,4 +62,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell ?? UITableViewCell()
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let videoCell = cell as? CustomTVCell else { return }
+        videoCell.collectionView?.reloadData()
+    }
 }

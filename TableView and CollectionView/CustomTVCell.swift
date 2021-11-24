@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import youtube_ios_player_helper
 
-class CustomTVCell: UITableViewCell {
+class CustomTVCell: UITableViewCell, YTPlayerViewDelegate {
     static let identifier = "CustomTVCell"
     
-    private var collectionView: UICollectionView?
+    var collectionView: UICollectionView?
     
     private var model = [String]()
     
@@ -71,18 +72,22 @@ extension CustomTVCell: UICollectionViewDelegate,
         cell?.configure(urlString: name)
         return cell ?? UICollectionViewCell()
     }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        collectionView?.visibleCells.forEach({ cell in
-            guard let videoCell = cell as? CustomCollectionViewCell else { return }
-            videoCell.stopPlay()
-        })
+//
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let videoCell = cell as? CustomCollectionViewCell else { return }
+        videoCell.player.delegate = self
     }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        collectionView?.visibleCells.forEach({ cell in
-            guard let videoCell = cell as? CustomCollectionViewCell else { return }
-            videoCell.presentVideo()
-        })
-    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        collectionView?.visibleCells.forEach({ cell in
+//            guard let videoCell = cell as? CustomCollectionViewCell else { return }
+//            
+//        })
+//    }
+//    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        collectionView?.visibleCells.forEach({ cell in
+//            guard let videoCell = cell as? CustomCollectionViewCell else { return }
+//            videoCell.presentVideo()
+//        })
+//    }
 }

@@ -6,16 +6,11 @@
 //
 
 import UIKit
-import AVKit
-import AVFoundation
+import youtube_ios_player_helper
 
 class CustomCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CustomCollectionViewCell"
-    
-    var urlString = ""
-    
-    var player: AVPlayer?
     
     private var image: UIImageView = {
        let image = UIImageView()
@@ -25,8 +20,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private var videoView: UIView = {
-       let view = UIView()
+    var player: YTPlayerView = {
+       let view = YTPlayerView()
         view.backgroundColor = .gray
         return view
     }()
@@ -34,7 +29,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .gray
-        contentView.addSubview(videoView)
+        contentView.addSubview(player)
         getImage()
     }
     
@@ -44,29 +39,32 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func getImage() {
         NSLayoutConstraint.activate([
-            videoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            videoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            videoView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            videoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            player.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            player.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            player.topAnchor.constraint(equalTo: contentView.topAnchor),
+            player.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
+    private func getQueryStringParameter(url: String, param: String) -> String? {
+        guard let url = URLComponents(string: url) else { print("no id")
+            return nil }
+        let result = url.queryItems?.first(where: { $0.name == param })?.value
+        return result
+      }
+    
     func configure(urlString: String) {
-        self.urlString = urlString
+        guard let video = getQueryStringParameter(url: urlString, param: "v") else { return }
+        player.load(withVideoId: video)
+        player.delegate = self
     }
     
-    func presentVideo() {
-        guard let url = URL(string: urlString) else { return }
-        DispatchQueue.main.async {
-            self.player = AVPlayer(url: url)
-            let playerLayer = AVPlayerLayer(player: self.player)
-            self.videoView.layer.addSublayer(playerLayer)
-            playerLayer.frame = self.frame
-            self.player?.play()
-        }
-    }
+}
+
+extension CustomCollectionViewCell: YTPlayerViewDelegate {
     
-    func stopPlay() {
-        player?.pause()
+    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+        print("Ready")
+        
     }
 }
