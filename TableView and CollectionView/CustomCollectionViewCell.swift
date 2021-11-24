@@ -56,6 +56,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     func configure(urlString: String) {
         guard let video = getQueryStringParameter(url: urlString, param: "v") else { return }
         player.load(withVideoId: video)
+        playerViewDidBecomeReady(player)
         player.delegate = self
     }
     
@@ -65,6 +66,6 @@ extension CustomCollectionViewCell: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         print("Ready")
-        
+        playerView.playVideo()
     }
 }

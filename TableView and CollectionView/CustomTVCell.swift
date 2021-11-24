@@ -73,10 +73,10 @@ extension CustomTVCell: UICollectionViewDelegate,
         return cell ?? UICollectionViewCell()
     }
 //
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let videoCell = cell as? CustomCollectionViewCell else { return }
-        videoCell.player.delegate = self
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let videoCell = cell as? CustomCollectionViewCell else { return }
+//        videoCell.player.delegate = self
+//    }
 //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 //        collectionView?.visibleCells.forEach({ cell in
 //            guard let videoCell = cell as? CustomCollectionViewCell else { return }
